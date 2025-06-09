@@ -5,49 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title> Nosso Amor 💖</title>
   <style>
-	.timeline {
-  position: relative;
-  margin-top: 1rem;
-  padding-left: 1rem;
-  border-left: 3px solid #f9c6d3;
-}
-
-.event {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  animation: slideUp 0.8s ease both;
-}
-
-.event .dot {
-  font-size: 1.5rem;
-  margin-right: 1rem;
-  transform: translateY(4px);
-}
-
-.event .content h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #b03b6f;
-}
-
-.event .content p {
-  margin: 0.3rem 0 0 0;
-  color: #5c2a55;
-  font-size: 0.95rem;
-}
-
-@media (max-width: 600px) {
-  .timeline {
-    padding-left: 0.8rem;
-
-  }
-
-  .event .dot {
-    font-size: 14pix;
-  }
-}
-  
     :root {
       --bg: #fffafa;
       --accent: #f9c6d3;
@@ -68,15 +25,9 @@
       color: var(--text);
       line-height: 1.6;
       padding: 1rem;
+      max-width: 700px;
+      margin: auto;
     }
-	  img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border-radius: 10px;
-  display: block;
-  margin: 1rem auto;
-}
 
     header {
       text-align: center;
@@ -118,11 +69,64 @@
       margin-bottom: 0.4rem;
     }
 
+    /* Timeline */
+
+    .timeline {
+      position: relative;
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    .event {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      animation: slideUp 0.8s ease both;
+    }
+
+    .event .dot {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transform: translateY(4px);
+      flex-shrink: 0;
+    }
+
+    .event .content h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #b03b6f;
+    }
+
+    .event .content p {
+      margin: 0.3rem 0 0 0;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+
     .gallery {
       display: flex;
       gap: 10px;
       overflow-x: auto;
       padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) transparent;
+    }
+
+    /* Scrollbar para Chrome, Edge e Safari */
+    .gallery::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .gallery::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .gallery::-webkit-scrollbar-thumb {
+      background-color: var(--accent);
+      border-radius: 4px;
     }
 
     .gallery img {
@@ -132,15 +136,32 @@
       box-shadow: var(--soft-shadow);
       flex-shrink: 0;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .gallery img:hover {
       transform: scale(1.05);
     }
 
+    /* Imagens no conteúdo */
+
+    img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    /* Player de áudio */
+
     audio {
       width: 100%;
       margin-top: 1rem;
+      outline: none;
+      border-radius: 10px;
+      box-shadow: var(--soft-shadow);
     }
 
     footer {
@@ -149,6 +170,8 @@
       font-size: 0.9rem;
       color: #a87b9c;
     }
+
+    /* Animações */
 
     @keyframes fadeIn {
       from {opacity: 0;}
@@ -166,10 +189,38 @@
       }
     }
 
-    @media (min-width: 768px) {
+    /* MEDIA QUERIES PARA MOBILE */
+
+    @media (max-width: 600px) {
+      .timeline {
+        padding-left: 0.8rem;
+        border-left-width: 2px;
+      }
+
+      .event .dot {
+        font-size: 1.2rem;
+        margin-right: 0.6rem;
+        transform: translateY(3px);
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      p.subtitle {
+        font-size: 0.9rem;
+      }
+
+      .gallery img {
+        width: 100px;
+      }
+
       body {
-        max-width: 700px;
-        margin: auto;
+        padding: 0.8rem;
       }
     }
   </style>
@@ -211,7 +262,7 @@ Feliz dois anos, amor! Que venham muitos outros ao seu lado. 💛</p>
 
   <section class="card">
     <h2>📸 Nossos Momentos</h2>
-    <div class="gallery">
+    <div class="gallery" tabindex="0" aria-label="Galeria de fotos">
       <img src="nossoano2/foto1.jpeg" alt="Foto juntos 1" />
       <img src="nossoano2/foto2.jpeg" alt="Foto juntos 2" />
       <img src="nossoano2/foto3.jpeg" alt="Foto juntos 3" />
@@ -226,41 +277,32 @@ Feliz dois anos, amor! Que venham muitos outros ao seu lado. 💛</p>
       Seu navegador não suporta áudio.
     </audio>
   </section>
-<section class="card">
-  <h2>🕰️ Linha do Tempo</h2>
-  <div class="timeline">
-    <div class="event">
-      <div class="dot">💘</div>
-      <div class="content">
-        <h3>11/02/2023</h3>
-        <p>Nosso primeiro encontro. O início de tudo.</p>
+
+  <section class="card">
+    <h2>🕰️ Linha do Tempo</h2>
+    <div class="timeline">
+      <div class="event">
+        <div class="dot">💘</div>
+        <div class="content">
+          <h3>11/02/2023</h3>
+          <p>Nosso primeiro encontro. O início de tudo.</p>
+        </div>
       </div>
-    </div>
-    <div class="event">
-      <div class="dot">💍</div>
-      <div class="content">
-        <h3>10/06/2023</h3>
-        <p>Oficializamos nosso namoro com muitos sorrisos e um beijo.</p>
+      <div class="event">
+        <div class="dot">💍</div>
+        <div class="content">
+          <h3>10/06/2023</h3>
+          <p>Oficializamos nosso namoro com muitos sorrisos e um beijo.</p>
+        </div>
       </div>
-    </div>
-    <div class="event">
-      <div class="dot">🌅</div>
-      <div class="content">
-        <h3>30/04/2024</h3>
-        <p>Primeira viagem juntos. Um pôr do sol que nunca vamos esquecer.</p>
+      <div class="event">
+        <div class="dot">🌅</div>
+        <div class="content">
+          <h3>30/04/2024</h3>
+          <p>Primeira viagem juntos. Um pôr do sol que nunca vamos esquecer.</p>
+        </div>
       </div>
-    </div>
-    <div class="event">
-      <div class="dot">🎂</div>
-      <div class="content">
-        <h3>09/03/2025</h3>
-        <p>Nossa ultima foto juntos.</p>
-      </div>
-    </div>
-  </div>
-</section>
-  <footer>
-    Feito com carinho por Engede Hannã 💗
-  </footer>
-</body>
-</html>
+      <div class="event">
+        <div class="dot">🎂</div>
+        <div class="content">
+         
